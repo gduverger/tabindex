@@ -3,6 +3,8 @@
  * Author: Georges Duverger
  */
 
+var KEY = { UP: 38, DOWN: 40, DEL: 46, TAB: 9, RETURN: 13, ESC: 27, COMMA: 188, PAGEUP: 33, PAGEDOWN: 34, BACKSPACE: 8 };
+
 // Methods attached to the jQuery.fn object
 
 jQuery.fn.tabindex = function(options) {
@@ -17,12 +19,12 @@ jQuery.fn.tabindex = function(options) {
 jQuery.fn.bindtab = function() {
 	return this.each(function(){
 		$(this).keydown(function(e) {
-			if(e.shiftKey && e.keyCode == 9) {
+			if(e.shiftKey && e.keyCode == KEY.TAB) {
 				// TODO/BUG should check if that value has indeed changed
 				$(this).change();
 				$(this).shifttab();
 				return false; // Prevents the default behaviour
-			} else if(!e.shiftKey && e.keyCode == 9) {
+			} else if(!e.shiftKey && e.keyCode == KEY.TAB) {
 				// TODO/BUG should check if that value has indeed changed
 				$(this).change();
 				$(this).tab();
@@ -42,7 +44,6 @@ jQuery.fn.resetindexes = function() {
 jQuery.fn.tab = function(options) {
 	var defaults = {select: true, blur: true};
 	var settings = $.extend({}, defaults, options);
-
 	if(settings["blur"]) { this.blur() };
 	var index = parseInt(this.attr("tabindex"));
 	var element;
